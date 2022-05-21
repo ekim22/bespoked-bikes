@@ -1,4 +1,5 @@
 export interface ProductModel {
+  _id: string,
   name: string,
   manufacturer: string,
   style: string,
