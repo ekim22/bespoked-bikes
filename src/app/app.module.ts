@@ -7,6 +7,8 @@ import { SalespersonComponent } from './salesperson/salesperson.component';
 import { ProductComponent } from './product/product.component';
 import { CustomerComponent } from './customer/customer.component';
 import { SalesComponent } from './sales/sales.component';
+import { HeaderComponent } from './header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,13 @@ import { SalesComponent } from './sales/sales.component';
     SalespersonComponent,
     ProductComponent,
     CustomerComponent,
-    SalesComponent
+    SalesComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
