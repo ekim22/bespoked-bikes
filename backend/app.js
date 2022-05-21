@@ -2,6 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 
+const routes = require('./routes/routes');
+
 const app = express();
 
 // DB address
@@ -19,5 +21,12 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 mongoose.connection.once('open', () => {
   console.log('Connected to database!');
 });
+
+
+app.use('/api/products', routes.productRoutes);
+app.use('/api/salespeople', routes.salespeopleRoutes);
+app.use('/api/customers', routes.customerRoutes);
+app.use('/api/sales', routes.salesRoutes);
+app.use('/api/discounts', routes.discountRoutes);
 
 module.exports = app;
