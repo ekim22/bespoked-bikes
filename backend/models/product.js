@@ -8,7 +8,7 @@ const productSchema = mongoose.Schema({
   purchasePrice: {type: Number, required: true},
   salePrice: {type: Number, required: true},
   qtyOnHand: {type: Number, required: true},
-  commissionPercentage: {type: String, required: true},
+  commissionPercentage: {type: Number, required: true},
 });
 
 module.exports = mongoose.model('Product', productSchema);
