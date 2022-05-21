@@ -7,6 +7,14 @@ const routes = require('./routes/routes');
 
 const app = express();
 
+app.all('/*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTION, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
+  res.header('Access-Control-Allow-Credentials', 'false');
+  next();
+});
+
 // DB address
 let mongoDB;
 if (app.settings.env === 'development') {
