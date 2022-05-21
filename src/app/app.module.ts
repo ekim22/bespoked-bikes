@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SalespersonComponent } from './salesperson/salesperson.component';
-import { ProductComponent } from './product/product.component';
-import { CustomerComponent } from './customer/customer.component';
-import { SalesComponent } from './sales/sales.component';
-import { HeaderComponent } from './header/header.component';
+import { SalespersonComponent } from './features/salesperson/salesperson.component';
+import { ProductComponent } from './features/product/product.component';
+import { CustomerComponent } from './features/customer/customer.component';
+import { SalesComponent } from './features/sales/sales.component';
+import { HeaderComponent } from './core/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";

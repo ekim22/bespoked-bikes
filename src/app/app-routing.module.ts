@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {SalespersonComponent} from "./salesperson/salesperson.component";
-import {ProductComponent} from "./product/product.component";
-import {CustomerComponent} from "./customer/customer.component";
-import {SalesComponent} from "./sales/sales.component";
+import {SalespersonComponent} from "./features/salesperson/salesperson.component";
+import {ProductComponent} from "./features/product/product.component";
+import {CustomerComponent} from "./features/customer/customer.component";
+import {SalesComponent} from "./features/sales/sales.component";
 
 const routes: Routes = [
   { path: 'salespeople', component: SalespersonComponent },

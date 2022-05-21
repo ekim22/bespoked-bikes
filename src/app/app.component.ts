@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {HeaderComponent} from "./header/header.component";
+import {HeaderComponent} from "./core/header/header.component";
 
 @Component({
   selector: 'app-root',
