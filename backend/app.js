@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const routes = require('./routes/routes');
@@ -22,6 +23,8 @@ mongoose.connection.once('open', () => {
   console.log('Connected to database!');
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api/products', routes.productRoutes);
 app.use('/api/salespeople', routes.salespeopleRoutes);
