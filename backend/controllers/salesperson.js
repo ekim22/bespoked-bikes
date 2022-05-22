@@ -41,10 +41,17 @@ module.exports.createSalesperson = async (req, res) => {
       terminationDate: req.body.terminationDate,
       manager: req.body.manager,
     };
-    await Salespeople.create(newSalesperson);
-    res.status(200).json({
-      message: 'Salesperson successfully added!',
-    });
+    const salesperson = await Salespeople.exists({phone: req.body.phone}).lean();
+    if (salesperson) {
+      res.status(400).json({
+        message: 'Salesperson already exists!',
+      });
+    } else {
+      await Salespeople.create(newSalesperson);
+      res.status(200).json({
+        message: 'Salesperson successfully added!',
+      });
+    }
   } catch (e) {
     console.log(e);
     res.status(500).json({
