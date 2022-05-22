@@ -36,16 +36,17 @@ export class CommissionReportComponent implements OnInit, OnDestroy {
 
       if (this.salesPeopleArray.length === 0) {
         sales.map(s => {
-          let salespersonName = s.salesperson.firstName + " " + s.salesperson.lastName;
-          let commissionEarned = s.product.salePrice * s.product.commissionPercentage;
+          let salespersonName = s.salespersonName;
+          // @ts-ignore
+          let commissionEarned = s.salePrice * s.commissionPercentage;
           if (this.salesPeople.has(salespersonName)) {
             this.salesPeopleList[salespersonName]["sales"].push({
               saleDate: s.saleDate,
-              customer: (s.customer.firstName + " " + s.customer.lastName),
+              customer: s.customerName,
               product: s.product.name,
-              commissionPercentage: s.product.commissionPercentage,
-              price: s.product.salePrice,
-              commissionEarned: commissionEarned,
+              commissionPercentage: s.commissionPercentage,
+              price: s.salePrice,
+              commissionEarned: s.salespersonCommission,
             });
             this.salesPeopleList[salespersonName]["totalCommissionEarned"] += commissionEarned;
           } else {
@@ -54,10 +55,10 @@ export class CommissionReportComponent implements OnInit, OnDestroy {
               name: salespersonName,
               sales: [{
                 saleDate: s.saleDate,
-                customer: (s.customer.firstName + " " + s.customer.lastName),
-                product: s.product.name,
-                commissionPercentage: s.product.commissionPercentage,
-                price: s.product.salePrice,
+                customer: s.customerName,
+                product: s.productName,
+                commissionPercentage: s.commissionPercentage,
+                price: s.salePrice,
                 commissionEarned: commissionEarned
               }],
               totalCommissionEarned: commissionEarned

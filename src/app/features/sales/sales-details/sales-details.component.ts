@@ -19,14 +19,15 @@ export class SalesDetailsComponent implements OnInit {
   ngOnInit(): void {
     if (history.state['sale']) {
       this.saleDetails = history.state['sale'];
+      console.log(this.saleDetails)
       this.productDetails = new FormGroup({
-        name: new FormControl(this.saleDetails.product.name),
+        name: new FormControl(this.saleDetails.productName),
         manufacturer: new FormControl(this.saleDetails.product.manufacturer),
         style: new FormControl(this.saleDetails.product.style),
         purchasePrice: new FormControl(this.saleDetails.product.purchasePrice),
-        salePrice: new FormControl(this.saleDetails.product.salePrice),
+        salePrice: new FormControl(this.saleDetails.salePrice),
         qtyOnHand: new FormControl(this.saleDetails.product.qtyOnHand),
-        commissionPercentage: new FormControl(this.saleDetails.product.commissionPercentage),
+        commissionPercentage: new FormControl(this.saleDetails.commissionPercentage),
       });
       this.customerDetails = new FormGroup({
         firstName: new FormControl(this.saleDetails.customer.firstName),
