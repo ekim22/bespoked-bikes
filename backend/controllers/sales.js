@@ -19,16 +19,17 @@ module.exports.getSales = async (req, res) => {
 };
 
 module.exports.createSale = async (req, res) => {
+  console.log(req.body);
   try {
     const newSale = {
-      product: req.body.productId,
-      salesperson: req.body.salespersonId,
-      customer: req.body.customerId,
+      product: req.body.product,
+      salesperson: req.body.salesperson,
+      customer: req.body.customer,
       saleDate: new Date(req.body.saleDate),
     };
     await Sales.create(newSale);
     res.status(201).json({
-      message: 'Sale successfully added to sales.',
+      message: 'Sale was successfully created.',
     });
   } catch (e) {
     console.log(e);
