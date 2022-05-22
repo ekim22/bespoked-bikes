@@ -1,12 +1,15 @@
 const Product = require('../models/product');
+const DiscountController = require('../controllers/discount');
 
 
 module.exports.getProducts = async (req, res) => {
   try {
     const products = await Product.find().lean();
+    const discounts = await DiscountController.getDiscounts();
     res.status(200).json({
       message: 'Fetched products.',
       products: products,
+      discounts: discounts,
     });
   } catch (e) {
     console.log(e);
