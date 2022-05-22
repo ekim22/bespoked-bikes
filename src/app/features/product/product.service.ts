@@ -42,6 +42,21 @@ export class ProductService {
     );
   }
 
+  deleteProduct(position: number, productId: string) {
+    this.httpClient.delete<{message: string}>(environment.apiUrl + 'products/' + productId).subscribe(
+      res => {
+        let products = this.products$.value.slice()
+        for (let i = 0; i < products.length; i++) {
+          if (i === position) {
+            products.splice(i, 1);
+          }
+        }
+        this.products$.next(products)
+        console.log(res.message);
+      }
+    );
+  }
+
   get products() {
     return this.products$.asObservable();
   }

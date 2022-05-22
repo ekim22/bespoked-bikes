@@ -36,4 +36,8 @@ export class ProductComponent implements OnInit {
     this.productService.updateProduct(position, id, form.value);
   }
 
+  removeBike(position: number, id: string) {
+    this.productService.deleteProduct(position, id);
+  }
+
 }
