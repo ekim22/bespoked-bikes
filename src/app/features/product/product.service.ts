@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
 import {ProductModel} from "./product.model";
@@ -27,7 +27,6 @@ export class ProductService {
                 const discountStartDate = new Date(discount[0].startDate);
                 const discountEndDate = new Date(discount[0].endDate);
                 if (todaysDate >= discountStartDate && todaysDate <= discountEndDate) {
-                  res.products[i].salePrice = res.products[i].salePrice - res.products[i].salePrice * discount[0].discountPercentage;
                   res.products[i].discounted = true;
                   res.products[i].discountPercentage = discount[0].discountPercentage;
                 }
@@ -44,17 +43,13 @@ export class ProductService {
   }
 
   updateProduct(position: number, productId: string, productData: ProductModel) {
-    this.httpClient.put<{message: string}>(environment.apiUrl + 'products/' + productId, productData).subscribe(
+    this.httpClient.put<{message: string, product: ProductModel}>(environment.apiUrl + 'products/' + productId, productData).subscribe(
       res => {
-        // TODO Doesn't do anything important right now, but it will if I have time to implement caching for my get requests.
         const products = this.products$.value.map((product, index) => {
           if (index === position) {
-            const products = this.products$.value.slice();
-            if (products[position].discounted) {
-              productData.salePrice = productData.salePrice - productData.discountPercentage * productData.salePrice;
-              return productData;
-            }
-          } return product;
+            return this.products$.value.slice()[position] = res.product;
+          }
+          return product;
         });
         this.products$.next(products)
         console.log(res.message);

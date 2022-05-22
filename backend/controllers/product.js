@@ -21,9 +21,10 @@ module.exports.getProducts = async (req, res) => {
 
 module.exports.updateProduct = async (req, res) => {
   try {
-    await Product.findByIdAndUpdate({_id: req.params.id}, req.body).lean();
+    const product = await Product.findByIdAndUpdate({_id: req.params.id}, req.body).lean();
     res.status(200).json({
       message: 'Product was updated!',
+      product: product,
     });
   } catch (e) {
     console.log(e);
