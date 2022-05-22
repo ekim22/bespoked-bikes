@@ -30,3 +30,25 @@ module.exports.updateSalesperson = async (req, res) => {
   }
 };
 
+module.exports.createSalesperson = async (req, res) => {
+  try {
+    const newSalesperson = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      address: req.body.address,
+      phone: req.body.phone,
+      startDate: req.body.startDate,
+      terminationDate: req.body.terminationDate,
+      manager: req.body.manager,
+    };
+    await Salespeople.create(newSalesperson);
+    res.status(200).json({
+      message: 'Salesperson successfully added!',
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      message: 'Server was unable to add salesperson.',
+    });
+  }
+};
