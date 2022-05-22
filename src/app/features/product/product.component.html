@@ -8,7 +8,7 @@
     <th mat-header-cell *matHeaderCellDef> {{column}} </th>
     <td mat-cell *matCellDef="let product">
       <span *ngIf="column == 'Purchase Price' || column == 'Sale Price'">
-        {{ '$' + product[column | columnKey] }}
+        {{ '$' + (product[column | columnKey] | number:'1.2-2') }}
       </span>
       <span *ngIf="column == 'Commission Percentage'">
         {{  product[column | columnKey] | percent:'0.2' }}
@@ -51,7 +51,7 @@
             <div class="expanded-details-column">
               <mat-form-field appearance="legacy">
                 <mat-label>Purchase Price</mat-label>
-                <input matInput type="text" id="purchasePrice" required [ngModel]="product['purchasePrice']" name="purchasePrice"  autocomplete="off">
+                <input matInput type="text" id="purchasePrice" required [ngModel]="product['purchasePrice'] | number:'1.2-2'" name="purchasePrice"  autocomplete="off">
               </mat-form-field>
             </div>
           </div>
@@ -59,7 +59,13 @@
             <div class="expanded-details-column">
               <mat-form-field appearance="legacy">
                 <mat-label>Sale Price</mat-label>
-                <input matInput type="text" id="salePrice" required [ngModel]="product['salePrice']" name="salePrice"  autocomplete="off">
+                <input [ngStyle]="{'color': product['discounted'] === true ? 'red' : ''}" matInput type="text" id="salePrice" required [ngModel]="product['salePrice'] | number:'1.2-2'" name="salePrice" autocomplete="off">
+              </mat-form-field>
+            </div>
+            <div class="expanded-details-column" *ngIf="product['discounted']">
+              <mat-form-field appearance="legacy">
+                <mat-label>Discounted</mat-label>
+                <input [ngStyle]="{'color': product['discounted'] === true ? 'red' : ''}" matInput type="text" id="discounted" required [ngModel]="product['discounted']" name="discounted" autocomplete="off">
               </mat-form-field>
             </div>
             <div class="expanded-details-column">
@@ -70,6 +76,12 @@
             </div>
           </div>
           <div class="expanded-details-row">
+            <div class="expanded-details-column" *ngIf="product['discounted']">
+              <mat-form-field appearance="legacy">
+                <mat-label>Discount Percentage</mat-label>
+                <input matInput type="text" id="discountPercentage" required [ngModel]="product['discountPercentage']" name="discountPercentage" autocomplete="off">
+              </mat-form-field>
+            </div>
             <div class="expanded-details-column">
               <mat-form-field appearance="legacy">
                 <mat-label>Commission Percentage</mat-label>
