@@ -4,6 +4,7 @@ import {SalespersonModel} from "./salesperson.model";
 import {Observable} from "rxjs";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {NgForm} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-salesperson',
@@ -24,7 +25,8 @@ export class SalespersonComponent implements OnInit {
   displayedColumns = ['First Name', 'Last Name', 'Address', 'Phone', 'Start Date', 'Termination Date', 'Manager'];
   expandedRow!: SalespersonModel | null;
 
-  constructor(private salespersonService: SalespersonService) { }
+  constructor(private salespersonService: SalespersonService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.salespersonService.getSalesPeople();
@@ -33,6 +35,7 @@ export class SalespersonComponent implements OnInit {
 
   updateInfo(position: number, id: string, form: NgForm) {
     this.salespersonService.updateSalesperson(position, id, form.value);
+    this._snackBar.open("Salesperson has been updated.", "OK");
   }
 
 }

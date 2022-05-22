@@ -4,6 +4,7 @@ import {ProductService} from "./product.service";
 import {NgForm} from "@angular/forms";
 import {ProductModel} from "./product.model";
 import {Observable} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-product',
@@ -25,7 +26,8 @@ export class ProductComponent implements OnInit {
   expandedRow!: ProductModel | null;
 
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.productService.getProducts();
@@ -34,6 +36,7 @@ export class ProductComponent implements OnInit {
 
   updateInfo(position: number, id: string, form: NgForm) {
     this.productService.updateProduct(position, id, form.value);
+    this._snackBar.open("Product updated.", "OK")
   }
 
   removeBike(position: number, id: string) {

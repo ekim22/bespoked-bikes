@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {ProductService} from "../../product/product.service";
 import {CustomerService} from "../../customer/customer.service";
 import {SalespersonService} from "../../salesperson/salesperson.service";
@@ -8,6 +7,7 @@ import {CustomerModel} from "../../customer/customer.model";
 import {SalespersonModel} from "../../salesperson/salesperson.model";
 import {Observable} from "rxjs";
 import {SalesService} from "../sales.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-create-sale',
@@ -15,7 +15,6 @@ import {SalesService} from "../sales.service";
   styleUrls: ['./create-sale.component.css']
 })
 export class CreateSaleComponent implements OnInit {
-  saleForm!: FormGroup;
   products$!: Observable<ProductModel[]>;
   customers$!: Observable<CustomerModel[]>;
   salespersons$!: Observable<SalespersonModel[]>;
@@ -23,7 +22,8 @@ export class CreateSaleComponent implements OnInit {
   constructor(private productService: ProductService,
               private customerService: CustomerService,
               private salespersonService: SalespersonService,
-              private salesService: SalesService) { }
+              private salesService: SalesService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.productService.getProducts();
@@ -37,5 +37,6 @@ export class CreateSaleComponent implements OnInit {
 
   createSale(saleDate: string, productId: string, customerId: string, salespersonId: string) {
     this.salesService.createSale(productId, customerId, salespersonId, saleDate);
+    this._snackBar.open("Sale was created!", "OK")
   }
 }
