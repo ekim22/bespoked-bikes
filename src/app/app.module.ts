@@ -27,6 +27,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import { CommissionReportComponent } from './features/commissions/commission-report/commission-report.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     TransformDatePipe,
     SalesDetailsComponent,
     CreateSaleComponent,
+    CommissionReportComponent,
   ],
   imports: [
     BrowserModule,
