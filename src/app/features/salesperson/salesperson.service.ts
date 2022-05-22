@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {SalespersonModel} from "./salesperson.model";
 import {BehaviorSubject} from "rxjs";
+import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,30 @@ export class SalespersonService {
 
   getSalesPeopleList() {
     this.httpClient.get<{ message: string, salesPeople: SalespersonModel[] }>(environment.apiUrl + 'salespeople')
-      .subscribe(res => this.salesPeople$.next(res.salesPeople))
+      .pipe(
+        tap(
+          res => {
+            for (let i = 0; i < res.salesPeople.length; i++) {
+              res.salesPeople[i].position = i;
+            }
+            return res;
+          }
+        )
+      )
+      .subscribe(res => {
+        this.salesPeople$.next(res.salesPeople);
+        console.log(res.message);
+      });
   }
 
-  // TODO update sales person
-  updateSalesperson(salesperson: SalespersonModel) {
-    this.httpClient.put(environment.apiUrl + 'salespeople/' + salesperson._id, salesperson)
+  updateSalesperson(position: number, salespersonId: string, salespersonData: SalespersonModel) {
+    this.httpClient.put<{message: string}>(environment.apiUrl + 'salespeople/' + salespersonId, salespersonData).subscribe(
+      res => {
+        // TODO Doesn't do anything important right now, but it will if I have time to implement caching for my get requests.
+        this.salesPeople$.value[position] = salespersonData;
+        console.log(res.message);
+      }
+    );
   }
 
   get salesPeople() {
