@@ -35,4 +35,8 @@ export class SalesService {
     return this.sales$.asObservable();
   }
 
+  get salesArray() {
+    return this.sales$.value.slice();
+  }
+
 }
