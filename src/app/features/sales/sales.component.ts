@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SalesService} from "./sales.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {SalesModel} from "./sales.model";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
@@ -11,8 +11,8 @@ import {MatTableDataSource} from "@angular/material/table";
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.css']
 })
-export class SalesComponent implements OnInit {
-  sales$!: Observable<SalesModel[]>;
+export class SalesComponent implements OnInit, OnDestroy {
+  sales$!: Subscription;
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl()
@@ -27,8 +27,12 @@ export class SalesComponent implements OnInit {
 
   ngOnInit(): void {
     this.salesService.getSales();
-    this.sales$ = this.salesService.sales;
-    this.dataSource = new MatTableDataSource<SalesModel>(this.salesService.salesArray);
+    this.sales$ = this.salesService.sales.subscribe(sales => {
+      this.dataSource = new MatTableDataSource<SalesModel>(sales);
+    });}
+
+  ngOnDestroy() {
+    this.sales$.unsubscribe();
   }
 
   viewSale(sale: SalesModel) {
