@@ -1,4 +1,5 @@
 export interface SalespersonModel {
+  position: number;
   _id: string,
   firstName: string,
   lastName: string,
