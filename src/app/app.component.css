@@ -1,6 +1,10 @@
 .sidenav {
   padding: 20px;
+  background: rgba(0,18,126,0.9);
+  color: white;
 }
+
+
 
 .nav-button {
   width: 100%;

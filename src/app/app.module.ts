@@ -14,6 +14,13 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
+import {MatTableModule} from "@angular/material/table";
+import {ColumnKeyPipe} from "./core/pipes/column-key.pipe";
+import {TransformDatePipe} from "./core/pipes/transform-date.pipe";
+import {FormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -23,6 +30,8 @@ import {HttpClientModule} from "@angular/common/http";
     CustomerComponent,
     SalesComponent,
     HeaderComponent,
+    ColumnKeyPipe,
+    TransformDatePipe,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +41,12 @@ import {HttpClientModule} from "@angular/common/http";
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
