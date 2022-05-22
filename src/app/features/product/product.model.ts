@@ -8,4 +8,6 @@ export interface ProductModel {
   salePrice: number,
   qtyOnHand: number,
   commissionPercentage: number
+  discounted: boolean;
+  discountPercentage: number;
 }
