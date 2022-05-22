@@ -7,6 +7,7 @@
 
 ## Products endpoints
 * **GET** /api/products
+* **PUT** /api/products/:id
 
 ## Customer endpoints
 * **GET** /api/customers
