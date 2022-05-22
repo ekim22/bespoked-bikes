@@ -2,7 +2,7 @@ const Sales = require('../models/sales');
 
 module.exports.getSales = async (req, res) => {
   try {
-    const sales = Sales.find().lean();
+    const sales = await Sales.find().lean();
     res.status(200).json({
       message: 'Fetched sales.',
       sales: sales,
