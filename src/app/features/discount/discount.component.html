@@ -1,1 +1,99 @@
-<p>discount works!</p>
+<mat-card>
+  <mat-card-title>Select Product</mat-card-title>
+  <mat-divider></mat-divider>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Product</mat-label>
+    <mat-select #selectedProduct>
+      <mat-option *ngFor="let product of products$ | async; index as i" [value]="product">
+        {{ product.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-card-content *ngIf="selectedProduct.selected">
+    <div class="card-content-row">
+      <div class="card-content-column">
+        <mat-form-field appearance="legacy">
+          <mat-label>Manufacturer</mat-label>
+          <input matInput type="text" readonly="true" disabled="true">{{selectedProduct.value['manufacturer']}}
+        </mat-form-field>
+      </div>
+      <div class="card-content-column">
+        <mat-form-field appearance="legacy">
+          <mat-label>Style</mat-label>
+          <input matInput type="text" readonly="true" disabled="true">{{selectedProduct.value['style']}}
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="card-content-row">
+      <div class="card-content-column">
+        <mat-form-field appearance="legacy">
+          <mat-label>Purchase Price</mat-label>
+          <input matInput type="text" readonly="true" disabled="true">{{selectedProduct.value['purchasePrice']}}
+        </mat-form-field>
+      </div>
+      <div class="card-content-column">
+        <mat-form-field appearance="legacy">
+          <mat-label>Sale Price</mat-label>
+          <input matInput type="text" readonly="true" disabled="true">{{selectedProduct.value['salePrice']}}
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="card-content-row">
+      <div class="card-content-column">
+        <mat-form-field appearance="legacy">
+          <mat-label>Qty On Hand</mat-label>
+          <input matInput type="text" readonly="true" disabled="true">{{selectedProduct.value['qtyOnHand']}}
+        </mat-form-field>
+      </div>
+      <div class="card-content-column">
+        <mat-form-field appearance="legacy">
+          <mat-label>Commission Percentage</mat-label>
+          <input matInput type="text" readonly="true" disabled="true">{{selectedProduct.value['commissionPercentage'] | percent:'1.2'}}
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="card-content-row">
+      <div class="card-content-column">
+        <mat-form-field appearance="legacy">
+          <mat-label>Discounted</mat-label>
+          <mat-select [(value)]="selectedProduct.value['discounted']" #discounted>
+            <mat-option>None</mat-option>
+            <mat-option [value]="true">Yes</mat-option>
+            <mat-option [value]="false">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="card-content-column">
+        <mat-form-field appearance="legacy">
+          <mat-label>Discount Percentage</mat-label>
+          <input matInput type="number" min="0" step='0.01' [(ngModel)]="selectedProduct.value['discountPercentage']">
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-title>Select Discount Time Period</mat-card-title>
+  <mat-divider></mat-divider>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date" (ngModelChange)="startRangeChanged($event)" #startDate>
+      <input matEndDate formControlName="end" placeholder="End date" (ngModelChange)="endRangeChanged($event)" #endDate>
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+  </mat-form-field>
+
+  <button *ngIf="selectedProduct.selected && startDate.value && endDate.value && selectedProduct.value['discounted'] && selectedProduct.value['discountPercentage'] > 0" mat-button color="accent" style="margin-left: 10px" (click)="registerDiscount(selectedProduct.value['_id'], selectedProduct.value['discounted'], selectedProduct.value['discountPercentage'])">
+    <mat-icon>check</mat-icon>
+    <span>
+      Register Discount
+    </span>
+  </button>
+
+</mat-card>
