@@ -41,10 +41,18 @@ module.exports.createProduct = async (req, res) => {
       qtyOnHand: req.body.qtyOnHand,
       commissionPercentage: req.body.commissionPercentage,
     };
-    await Product.create(newProduct);
-    res.status(200).json({
-      message: 'Product successfully created!',
-    });
+
+    const product = Product.exists({name: req.body.name}).lean();
+    if (product) {
+      res.status(400).json({
+        message: 'Product already exists!',
+      });
+    } else {
+      await Product.create(newProduct);
+      res.status(200).json({
+        message: 'Product successfully created!',
+      });
+    }
   } catch (e) {
     console.log(e);
     res.status(500).json({
