@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatAccordion} from "@angular/material/expansion";
 import {SalesService} from "../../sales/sales.service";
 import {Observable, of, Subscription} from "rxjs";
-import {MatTableDataSource} from "@angular/material/table";
 import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
@@ -23,8 +22,6 @@ export class CommissionReportComponent implements OnInit, OnDestroy {
     end: new FormControl()
   });
 
-  dataSource = new MatTableDataSource([]);
-
   // Table variables
   displayedColumns = ['Sale Date', 'Customer', 'Product', 'Price', 'Commission Percentage', 'Salesperson Commission' ];
 
@@ -42,7 +39,6 @@ export class CommissionReportComponent implements OnInit, OnDestroy {
           let salespersonName = s.salesperson.firstName + " " + s.salesperson.lastName;
           let commissionEarned = s.product.salePrice * s.product.commissionPercentage;
           if (this.salesPeople.has(salespersonName)) {
-            console.log('Name exists');
             this.salesPeopleList[salespersonName]["sales"].push({
               saleDate: s.saleDate,
               customer: (s.customer.firstName + " " + s.customer.lastName),
@@ -71,10 +67,7 @@ export class CommissionReportComponent implements OnInit, OnDestroy {
 
 
         this.salesPeople.forEach(v => this.salesPeopleArray.push(this.salesPeopleList[v]));
-        console.log(this.salesPeopleArray)
-        console.log(this.salesPeopleArray.sales)
         this.commissions$ = of(this.salesPeopleArray);
-        this.dataSource = new MatTableDataSource(this.salesPeopleArray);
       }
 
     });
