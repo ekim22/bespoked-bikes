@@ -11,8 +11,7 @@
   <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
   <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
 </mat-form-field>
-<button mat-button (click)="clearDateRange()">Clear</button>
-
+<button mat-button (click)="clearDateRange()" style="margin-left: 5px">Clear Range</button>
 <hr>
 <br>
 <table mat-table
