@@ -2,7 +2,10 @@ const Sales = require('../models/sales');
 
 module.exports.getSales = async (req, res) => {
   try {
-    const sales = await Sales.find().lean();
+    const sales = await Sales.find()
+        .populate('product salesperson customer')
+        .lean();
+
     res.status(200).json({
       message: 'Fetched sales.',
       sales: sales,
@@ -18,9 +21,9 @@ module.exports.getSales = async (req, res) => {
 module.exports.createSale = async (req, res) => {
   try {
     const newSale = {
-      productId: req.body.productId,
-      salespersonId: req.body.salespersonId,
-      customerId: req.body.customerId,
+      product: req.body.productId,
+      salesperson: req.body.salespersonId,
+      customer: req.body.customerId,
       saleDate: new Date(req.body.saleDate),
     };
     await Sales.create(newSale);
