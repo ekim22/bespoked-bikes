@@ -21,7 +21,7 @@
   <mat-expansion-panel *ngFor="let salesperson of commissions$ | async">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ salesperson['name'] }}
+        {{ "Salesperson: " + salesperson['name'] }}
       </mat-panel-title>
       <mat-panel-description>
         {{ "Total Commission Earned: " + "$" +(salesperson['totalCommissionEarned'] | number:'1.2-2') }}
