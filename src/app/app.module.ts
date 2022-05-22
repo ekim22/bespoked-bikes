@@ -28,6 +28,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import { CommissionReportComponent } from './features/commissions/commission-report/commission-report.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import { DiscountComponent } from './features/discount/discount.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { CommissionReportComponent } from './features/commissions/commission-rep
     SalesDetailsComponent,
     CreateSaleComponent,
     CommissionReportComponent,
+    DiscountComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import { CommissionReportComponent } from './features/commissions/commission-rep
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
