@@ -1,1 +1,32 @@
-<p>sales works!</p>
+<table mat-table
+       [dataSource]="sales$" multiTemplateDataRows
+       class="mat-elevation-z8" style="margin-bottom: 20px">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let sale">
+      <span *ngIf="column == 'Sale Date'">
+        {{ sale['saleDate'] | transformDate }}
+      </span>
+      <span *ngIf="column == 'Customer'">
+        {{ sale['customer']['firstName'] + " " + sale['customer']['lastName'] }}
+      </span>
+      <span *ngIf="column == 'Product'">
+        {{ sale['product']['name'] }}
+      </span>
+      <span *ngIf="column == 'Salesperson'">
+        {{  sale['salesperson']['firstName'] + " " + sale['salesperson']['lastName'] }}
+      </span>
+      <span *ngIf="column == 'Price'">
+        {{ "$" + sale['product']['salePrice'] }}
+      </span>
+      <span *ngIf="column == 'Salesperson Commission'">
+        {{ "$" + (sale['product']['salePrice'] * sale['product']['commissionPercentage'] | number:'1.1-2') }}
+      </span>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let sale; columns: displayedColumns;"
+      class="row" (click)="viewSale(sale)">
+  </tr>
+</table>
