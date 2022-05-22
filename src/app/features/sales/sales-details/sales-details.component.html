@@ -1,0 +1,175 @@
+<mat-card class="date-card">
+  <mat-card-title>Sale Date</mat-card-title>
+  <mat-divider></mat-divider>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]="saleDate">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</mat-card>
+
+<form class="card-container">
+  <mat-card>
+    <mat-card-title>Product Details</mat-card-title>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-card-content>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{productDetails?.get('name')?.value}}
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Manufacturer</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{productDetails?.get('manufacturer')?.value}}
+          </mat-form-field>
+        </div>
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Style</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{productDetails?.get('style')?.value}}
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Purchase Price</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{productDetails?.get('purchasePrice')?.value}}
+          </mat-form-field>
+        </div>
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Sale Price</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{productDetails?.get('salePrice')?.value}}
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Qty On Hand</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{productDetails?.get('qtyOnHand')?.value}}
+          </mat-form-field>
+        </div>
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Commission Percentage</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{productDetails?.get('commissionPercentage')?.value | percent:'1.2'}}
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Customer Details</mat-card-title>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-card-content>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{customerDetails?.get('firstName')?.value}}
+          </mat-form-field>
+        </div>
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{customerDetails?.get('lastName')?.value}}
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{customerDetails?.get('address')?.value}}
+          </mat-form-field>
+        </div>
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Phone</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{customerDetails?.get('phone')?.value}}
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Start Date</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{customerDetails?.get('startDate')?.value | transformDate }}
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Salesperson Details</mat-card-title>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-card-content>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{salespersonDetails?.get('firstName')?.value}}
+          </mat-form-field>
+        </div>
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{salespersonDetails?.get('lastName')?.value}}
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{salespersonDetails?.get('address')?.value}}
+          </mat-form-field>
+        </div>
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Phone</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{salespersonDetails?.get('phone')?.value}}
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Start Date</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{salespersonDetails?.get('startDate')?.value | transformDate }}
+          </mat-form-field>
+        </div>
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Termination Date</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{salespersonDetails?.get('terminationDate')?.value | transformDate }}
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="card-content-row">
+        <div class="card-content-column">
+          <mat-form-field appearance="legacy">
+            <mat-label>Manager</mat-label>
+            <input matInput type="text" readonly="true" disabled="true">{{ salespersonDetails?.get('manager')?.value }}
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
+
