@@ -17,10 +17,16 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import {ColumnKeyPipe} from "./core/pipes/column-key.pipe";
 import {TransformDatePipe} from "./core/pipes/transform-date.pipe";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDividerModule} from "@angular/material/divider";
+import { SalesDetailsComponent } from './features/sales/sales-details/sales-details.component';
+import { CreateSaleComponent } from './features/sales/create-sale/create-sale.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatSelectModule} from "@angular/material/select";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -32,6 +38,8 @@ import {MatDividerModule} from "@angular/material/divider";
     HeaderComponent,
     ColumnKeyPipe,
     TransformDatePipe,
+    SalesDetailsComponent,
+    CreateSaleComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +54,12 @@ import {MatDividerModule} from "@angular/material/divider";
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
