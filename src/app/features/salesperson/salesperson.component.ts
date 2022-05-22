@@ -18,7 +18,7 @@ import {NgForm} from "@angular/forms";
   ]
 })
 export class SalespersonComponent implements OnInit {
-  salesPeople$!: Observable<SalespersonModel[]>
+  salesPeople$!: Observable<SalespersonModel[]>;
 
   // Table variables
   displayedColumns = ['First Name', 'Last Name', 'Address', 'Phone', 'Start Date', 'Termination Date', 'Manager'];
@@ -27,7 +27,7 @@ export class SalespersonComponent implements OnInit {
   constructor(private salespersonService: SalespersonService) { }
 
   ngOnInit(): void {
-    this.salespersonService.getSalesPeopleList();
+    this.salespersonService.getSalesPeople();
     this.salesPeople$ = this.salespersonService.salesPeople;
   }
 

@@ -13,7 +13,7 @@ export class SalespersonService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getSalesPeopleList() {
+  getSalesPeople() {
     this.httpClient.get<{ message: string, salesPeople: SalespersonModel[] }>(environment.apiUrl + 'salespeople')
       .pipe(
         tap(
@@ -35,7 +35,8 @@ export class SalespersonService {
     this.httpClient.put<{message: string}>(environment.apiUrl + 'salespeople/' + salespersonId, salespersonData).subscribe(
       res => {
         // TODO Doesn't do anything important right now, but it will if I have time to implement caching for my get requests.
-        this.salesPeople$.value[position] = salespersonData;
+        const salesPeople = this.salesPeople$.value.map((salesperson, index) => index === position ? salespersonData : salesperson);
+        this.salesPeople$.next(salesPeople)
         console.log(res.message);
       }
     );
