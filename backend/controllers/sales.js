@@ -19,7 +19,6 @@ module.exports.getSales = async (req, res) => {
 };
 
 module.exports.createSale = async (req, res) => {
-  console.log(req.body);
   try {
     const newSale = {
       product: req.body.product,

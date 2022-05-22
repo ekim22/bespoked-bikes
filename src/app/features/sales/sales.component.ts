@@ -29,7 +29,8 @@ export class SalesComponent implements OnInit, OnDestroy {
     this.salesService.getSales();
     this.sales$ = this.salesService.sales.subscribe(sales => {
       this.dataSource = new MatTableDataSource<SalesModel>(sales);
-    });}
+    });
+  }
 
   ngOnDestroy() {
     this.sales$.unsubscribe();
