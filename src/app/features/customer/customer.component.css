@@ -1,0 +1,58 @@
+table {
+  width: 100%;
+}
+
+tr.row-detail {
+  height: 0;
+}
+
+tr.row:not(.row):hover {
+  background: whitesmoke;
+}
+
+tr.row:not(.row):active {
+  background: #efefef;
+}
+
+.row td {
+  border-bottom-width: 0;
+}
+
+.detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.profile-pic {
+  min-width: 70px;
+  width: 70px;
+  border: 1px solid grey;
+  border-radius: 70%;
+  padding: 16px;
+  font-weight: lighter;
+  margin: 16px 16px 28px 0;
+  height: 100px;
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.expanded-details-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.expanded-details-column {
+  display: inline-flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 6px;
+  max-width: 180px
+}
+
+.btn-update {
+  display: flex;
+  margin-left: auto;
+}
+
