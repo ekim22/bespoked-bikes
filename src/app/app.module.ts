@@ -30,6 +30,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import { CommissionReportComponent } from './features/commissions/commission-report/commission-report.component';
 import {MatExpansionModule} from "@angular/material/expansion";
 import { DiscountComponent } from './features/discount/discount.component';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { DiscountComponent } from './features/discount/discount.component';
     MatNativeDateModule,
     ReactiveFormsModule,
     MatExpansionModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
