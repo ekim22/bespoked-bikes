@@ -6,12 +6,18 @@ tr.row-detail {
   height: 0;
 }
 
-tr.row:not(.row):hover {
+tr.row:not(.expanded-row):hover {
   background: whitesmoke;
+  cursor: pointer;
 }
 
-tr.row:not(.row):active {
+tr.row:not(.expanded-row):active {
   background: #efefef;
+}
+
+.highlight-row {
+  background: rgba(53,157,210,0.49);
+  cursor: pointer;
 }
 
 .row td {
@@ -32,7 +38,7 @@ tr.row:not(.row):active {
   font-weight: lighter;
   margin: 16px 16px 28px 0;
   height: 100px;
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/7c/Romania_politic_personality_icon.svg');
   background-size: cover;
 }
 
