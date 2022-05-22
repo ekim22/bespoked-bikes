@@ -1,4 +1,5 @@
 export interface ProductModel {
+  position: number,
   _id: string,
   name: string,
   manufacturer: string,

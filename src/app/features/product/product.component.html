@@ -1,1 +1,96 @@
-<p>product works!</p>
+<table mat-table
+       [dataSource]="products$" multiTemplateDataRows
+       class="mat-elevation-z8">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let product">
+      <span *ngIf="column == 'Purchase Price' || column == 'Sale Price'">
+        {{ '$' + product[column | columnKey] }}
+      </span>
+      <span *ngIf="column == 'Commission Percentage'">
+        {{  product[column | columnKey] | percent }}
+      </span>
+      <span *ngIf="column == 'Name' || column == 'Manufacturer' || column == 'Style' || column == 'Qty On Hand' ">
+        {{ product[column | columnKey] }}
+      </span>
+    </td>
+  </ng-container>
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let product" [attr.colspan]="displayedColumns.length">
+      <div class="detail"
+           [@detailExpand]="product == expandedRow ? 'expanded' : 'collapsed'">
+
+        <div class="profile-pic"></div>
+
+        <form #productForm="ngForm">
+          <div class="expanded-details-row">
+            <div class="expanded-details-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" id="name" required [ngModel]="product['name']" name="name" autocomplete="off">
+              </mat-form-field>
+            </div>
+            <div class="expanded-details-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Manufacturer</mat-label>
+                <input matInput type="text" id="manufacturer" required [ngModel]="product['manufacturer']" name="manufacturer" autocomplete="off">
+              </mat-form-field>
+            </div>
+            <div class="expanded-details-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Style</mat-label>
+                <input matInput type="text" id="style" required [ngModel]="product['style']" name="style" autocomplete="off">
+              </mat-form-field>
+            </div>
+            <div class="expanded-details-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Purchase Price</mat-label>
+                <input matInput type="text" id="purchasePrice" required [ngModel]="product['purchasePrice']" name="purchasePrice"  autocomplete="off">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="expanded-details-row">
+            <div class="expanded-details-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Sale Price</mat-label>
+                <input matInput type="text" id="salePrice" required [ngModel]="product['salePrice']" name="salePrice"  autocomplete="off">
+              </mat-form-field>
+            </div>
+            <div class="expanded-details-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Qty On Hand</mat-label>
+                <input matInput type="text" id="qtyOnHand" required [ngModel]="product['qtyOnHand']" name="qtyOnHand" autocomplete="off">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="expanded-details-row">
+            <div class="expanded-details-column">
+              <mat-form-field appearance="legacy">
+                <mat-label>Commission Percentage</mat-label>
+                <input matInput type="text" id="commissionPercentage" required [ngModel]="product['commissionPercentage']" name="commissionPercentage" autocomplete="off">
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+        <div class="btn-update">
+          <button mat-button type="button" color="primary" (click)="updateInfo(product['position'], product['_id'], productForm)">
+            <mat-icon>update</mat-icon>
+            <span>
+                Update
+              </span>
+          </button>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let product; columns: displayedColumns;"
+      class="row"
+      [class.row]="expandedRow === product"
+      (click)="expandedRow = expandedRow === product ? null : product">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="row-detail"></tr>
+</table>
