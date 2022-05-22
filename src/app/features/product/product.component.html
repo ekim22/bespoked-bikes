@@ -8,7 +8,7 @@
         {{ '$' + product[column | columnKey] }}
       </span>
       <span *ngIf="column == 'Commission Percentage'">
-        {{  product[column | columnKey] | percent }}
+        {{  product[column | columnKey] | percent:'0.2' }}
       </span>
       <span *ngIf="column == 'Name' || column == 'Manufacturer' || column == 'Style' || column == 'Qty On Hand' ">
         {{ product[column | columnKey] }}
