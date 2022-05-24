@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const routes = require('./routes/routes');
+const path = require('path');
 
 const app = express();
 
@@ -39,5 +40,11 @@ app.use('/api/salespeople', routes.salespeopleRoutes);
 app.use('/api/customers', routes.customerRoutes);
 app.use('/api/sales', routes.salesRoutes);
 app.use('/api/discounts', routes.discountRoutes);
+
+const distDir = path.join(__dirname, '../dist');
+app.use(express.static(path.join(distDir + '/bespoked-bikes')));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(distDir + '/bespoked-bikes/index.html'));
+});
 
 module.exports = app;
