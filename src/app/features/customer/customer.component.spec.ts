@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomerComponent } from './customer.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('CustomerComponent', () => {
   let component: CustomerComponent;
@@ -12,6 +13,7 @@ describe('CustomerComponent', () => {
       imports: [
         HttpClientTestingModule
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       declarations: [ CustomerComponent ]
     })
     .compileComponents();

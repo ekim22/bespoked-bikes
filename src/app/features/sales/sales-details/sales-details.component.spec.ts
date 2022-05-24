@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {Pipe, PipeTransform} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
 
 
 import { SalesDetailsComponent } from './sales-details.component';
@@ -23,7 +23,8 @@ describe('SalesDetailsComponent', () => {
       declarations: [
         SalesDetailsComponent,
         MockPipe
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   });

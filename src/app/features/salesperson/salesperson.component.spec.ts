@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SalespersonComponent } from './salesperson.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('SalespersonComponent', () => {
   let component: SalespersonComponent;
@@ -14,7 +15,8 @@ describe('SalespersonComponent', () => {
         HttpClientTestingModule,
         MatSnackBarModule,
       ],
-      declarations: [ SalespersonComponent ]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      declarations: [ SalespersonComponent ],
     })
     .compileComponents();
   });
