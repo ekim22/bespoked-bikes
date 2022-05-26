@@ -59,19 +59,25 @@
             <div class="expanded-details-column">
               <mat-form-field appearance="legacy">
                 <mat-label>Sale Price</mat-label>
-                <input [ngStyle]="{'color': product['discounted'] === true ? 'red' : ''}" matInput type="text" id="salePrice" required [ngModel]="product['salePrice'] | number:'1.2-2'" name="salePrice" autocomplete="off">
+                <input matInput type="number" id="salePrice" required [ngModel]="product['salePrice'] | number:'1.2-2'" name="salePrice" autocomplete="off" (ngModelChange)="onSalePriceChange(productForm)">
               </mat-form-field>
             </div>
-            <div class="expanded-details-column" *ngIf="product['discounted']">
+            <div [hidden]="true">
               <mat-form-field appearance="legacy">
                 <mat-label>Discounted</mat-label>
                 <input [ngStyle]="{'color': product['discounted'] === true ? 'red' : ''}" matInput type="text" id="discounted" required [ngModel]="product['discounted']" name="discounted" autocomplete="off">
               </mat-form-field>
             </div>
+            <div class="expanded-details-column" *ngIf="product['discounted']">
+              <mat-form-field appearance="legacy">
+                <mat-label>Discounted Price</mat-label>
+                <input [ngStyle]="{'color': product['discounted'] === true ? 'red' : ''}" matInput type="number" id="discountedPrice" required [ngModel]="product['discountedPrice'] | number:'1.2-2'" name="discountedPrice" autocomplete="off">
+              </mat-form-field>
+            </div>
             <div class="expanded-details-column">
               <mat-form-field appearance="legacy">
                 <mat-label>Qty On Hand</mat-label>
-                <input matInput type="text" id="qtyOnHand" required [ngModel]="product['qtyOnHand']" name="qtyOnHand" autocomplete="off">
+                <input matInput type="number" step="1" id="qtyOnHand" required [ngModel]="product['qtyOnHand']" name="qtyOnHand" autocomplete="off">
               </mat-form-field>
             </div>
           </div>
@@ -79,26 +85,19 @@
             <div class="expanded-details-column" *ngIf="product['discounted']">
               <mat-form-field appearance="legacy">
                 <mat-label>Discount Percentage</mat-label>
-                <input matInput type="text" id="discountPercentage" required [ngModel]="product['discountPercentage']" name="discountPercentage" autocomplete="off">
+                <input matInput type="number" step='0.001' id="discountPercentage" required [ngModel]="product['discountPercentage']" name="discountPercentage" autocomplete="off">
               </mat-form-field>
             </div>
             <div class="expanded-details-column">
               <mat-form-field appearance="legacy">
                 <mat-label>Commission Percentage</mat-label>
-                <input matInput type="text" id="commissionPercentage" required [ngModel]="product['commissionPercentage']" name="commissionPercentage" autocomplete="off">
+                <input matInput type="number" step='0.001' id="commissionPercentage" required [ngModel]="product['commissionPercentage']" name="commissionPercentage" autocomplete="off">
               </mat-form-field>
             </div>
           </div>
         </form>
         <div class="btn-update">
-          <!-- Works, but it's not really useful... -->
-<!--          <button mat-button type="button" color="warn" (click)="removeBike(product['position'], product['_id'])">-->
-<!--            <mat-icon>delete</mat-icon>-->
-<!--            <span>-->
-<!--                Remove-->
-<!--              </span>-->
-<!--          </button>-->
-          <button mat-button type="button" color="primary" (click)="updateInfo(product['position'], product['_id'], productForm)">
+          <button mat-button type="button" color="primary" (click)="updateInfo(product['position'], product['_id'], productForm); expandedRow = null">
             <mat-icon>update</mat-icon>
             <span>
                 Update

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ProductService} from "./product.service";
 import {NgForm} from "@angular/forms";
@@ -36,11 +36,20 @@ export class ProductComponent implements OnInit {
 
   updateInfo(position: number, id: string, form: NgForm) {
     this.productService.updateProduct(position, id, form.value);
-    this._snackBar.open("Product updated.", "OK")
+    this._snackBar.open("Product updated.", "OK", {
+      duration: 2000
+    })
   }
 
   removeBike(position: number, id: string) {
     this.productService.deleteProduct(position, id);
+  }
+
+  onSalePriceChange(form: NgForm) {
+    if (form.value.discounted) {
+      const discountedPrice = form.value.salePrice - form.value.discountPercentage * form.value.salePrice;
+      form.controls['discountedPrice'].setValue(Number(discountedPrice.toFixed(2)))
+    }
   }
 
 }
