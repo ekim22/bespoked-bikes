@@ -9,8 +9,6 @@ const productSchema = mongoose.Schema({
   salePrice: {type: Number, required: true},
   qtyOnHand: {type: Number, required: true},
   commissionPercentage: {type: Number, required: true},
-  discounted: {type: Boolean},
-  discountPercentage: {type: Number},
 });
 
 module.exports = mongoose.model('Product', productSchema);
