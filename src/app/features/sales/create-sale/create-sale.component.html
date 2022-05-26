@@ -97,7 +97,7 @@
       <br>
       <mat-form-field appearance="outline">
         <mat-label>Customer</mat-label>
-        <mat-select #selectedCustomer>
+        <mat-select #selectedCustomer [disabled]="saleDate.value.length === 0">
           <mat-option *ngFor="let customer of customers$ | async;" [value]="customer">
             {{ customer.firstName + " " + customer.lastName }}
           </mat-option>
