@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
 import {ProductModel} from "./product.model";
 import {environment} from "../../../environments/environment";
-import {tap} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {DiscountModel} from "../discount/discount.model";
 
 @Injectable({
@@ -15,22 +15,27 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   getProducts() {
-    this.httpClient.get<{ message: string, products: ProductModel[], discounts: DiscountModel[]}>(environment.apiUrl + 'products')
+    this.httpClient.get<{ message: string, products: ProductModel[], discounts: DiscountModel[] }>(environment.apiUrl + 'products')
       .pipe(
-        tap(
+        map(
           res => {
             for (let i = 0; i < res.products.length; i++) {
               res.products[i].position = i;
-              let discount = res.discounts.filter(v => v.productId == res.products[i]._id);
-              if (discount.length > 0) {
-                const todaysDate = new Date(Date.now());
-                const discountStartDate = new Date(discount[0].startDate);
-                const discountEndDate = new Date(discount[0].endDate);
-                if (todaysDate >= discountStartDate && todaysDate <= discountEndDate) {
-                  res.products[i].discounted = true;
-                  res.products[i].discountPercentage = discount[0].discountPercentage;
+
+                let discount = res.discounts.filter(v => v.productId == res.products[i]._id);
+                if (discount.length > 0) {
+                  const todaysDate = new Date(Date.now());
+                  const discountStartDate = new Date(discount[0].startDate);
+                  const discountEndDate = new Date(discount[0].endDate);
+                  if (todaysDate >= discountStartDate && todaysDate <= discountEndDate) {
+                    res.products[i].discounted = true;
+                    res.products[i].discountPercentage = discount[0].discountPercentage;
+                    res.products[i].discountedPrice = res.products[i].salePrice - (res.products[i].salePrice * discount[0].discountPercentage);
+                    res.products[i].discountStartDate = discountStartDate;
+                    res.products[i].discountEndDate = discountEndDate;
+                  }
                 }
-              }
+
             }
             return res;
           }
@@ -43,14 +48,16 @@ export class ProductService {
   }
 
   updateProduct(position: number, productId: string, productData: ProductModel) {
-    this.httpClient.put<{message: string, product: ProductModel}>(environment.apiUrl + 'products/' + productId, productData).subscribe(
+    this.httpClient.put<{message: string, product: ProductModel}>(environment.apiUrl + 'products/' + productId, productData)
+      .subscribe(
       res => {
         const products = this.products$.value.map((product, index) => {
           if (index === position) {
-            return this.products$.value.slice()[position] = res.product;
+            res.product.position = position;
+            product = res.product
           }
           return product;
-        });
+        })
         this.products$.next(products)
         console.log(res.message);
       }
