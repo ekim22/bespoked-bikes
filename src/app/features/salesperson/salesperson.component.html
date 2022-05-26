@@ -49,13 +49,19 @@
             <div class="expanded-details-column">
               <mat-form-field appearance="legacy">
                 <mat-label>Start Date</mat-label>
-                <input matInput type="text" id="startDate" required [ngModel]="salesperson['startDate'] | date:'M/d/yy'" name="startDate"  autocomplete="off">
+                <input matInput [matDatepicker]="startDate" [ngModel]="salesperson['startDate']" name="startDate" id="startDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="expanded-details-column">
               <mat-form-field appearance="legacy">
                 <mat-label>Termination Date</mat-label>
-                <input matInput type="text" id="terminationDate" required [ngModel]="salesperson['terminationDate'] | date:'M/d/yy'" name="terminationDate" autocomplete="off">
+                <input matInput [matDatepicker]="terminationDate" [ngModel]="salesperson['terminationDate']" name="terminationDate" id="terminationDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="terminationDate"></mat-datepicker-toggle>
+                <mat-datepicker #terminationDate></mat-datepicker>
               </mat-form-field>
             </div>
           </div>

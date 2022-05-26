@@ -19,7 +19,6 @@ export class SalesDetailsComponent implements OnInit {
   ngOnInit(): void {
     if (history.state['sale']) {
       this.saleDetails = history.state['sale'];
-      console.log(this.saleDetails)
       this.productDetails = new FormGroup({
         name: new FormControl(this.saleDetails.productName),
         manufacturer: new FormControl(this.saleDetails.product.manufacturer),

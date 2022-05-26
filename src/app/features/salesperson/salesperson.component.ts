@@ -35,7 +35,9 @@ export class SalespersonComponent implements OnInit {
 
   updateInfo(position: number, id: string, form: NgForm) {
     this.salespersonService.updateSalesperson(position, id, form.value);
-    this._snackBar.open("Salesperson has been updated.", "OK");
+    this._snackBar.open("Salesperson has been updated.", "OK", {
+      duration: 2000
+    });
   }
 
 }

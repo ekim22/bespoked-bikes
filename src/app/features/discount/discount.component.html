@@ -2,7 +2,7 @@
   <mat-card-title>Select Product</mat-card-title>
   <mat-divider></mat-divider>
   <br>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Product</mat-label>
     <mat-select #selectedProduct>
       <mat-option *ngFor="let product of products$ | async; index as i" [value]="product">
@@ -76,7 +76,7 @@
   <mat-card-title>Select Discount Time Period</mat-card-title>
   <mat-divider></mat-divider>
   <br>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
       <input matStartDate formControlName="start" placeholder="Start date" (ngModelChange)="startRangeChanged($event)" #startDate>
