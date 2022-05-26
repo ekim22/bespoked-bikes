@@ -34,10 +34,10 @@ mongoose.connection.once('open', () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/api/products', routes.productRoutes);
-app.use('/api/salespeople', routes.salespeopleRoutes);
-app.use('/api/customers', routes.customerRoutes);
-app.use('/api/sales', routes.salesRoutes);
-app.use('/api/discounts', routes.discountRoutes);
+app.use('/api/products', (req, res, next) => setTimeout(next, 300), routes.productRoutes);
+app.use('/api/salespeople', (req, res, next) => setTimeout(next, 300), routes.salespeopleRoutes);
+app.use('/api/customers', (req, res, next) => setTimeout(next, 300), routes.customerRoutes);
+app.use('/api/sales', (req, res, next) => setTimeout(next, 300), routes.salesRoutes);
+app.use('/api/discounts', (req, res, next) => setTimeout(next, 300), routes.discountRoutes);
 
 module.exports = app;
