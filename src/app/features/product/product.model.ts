@@ -9,5 +9,8 @@ export interface ProductModel {
   qtyOnHand: number,
   commissionPercentage: number
   discounted: boolean;
+  discountedPrice: number;
   discountPercentage: number;
+  discountStartDate: Date,
+  discountEndDate: Date,
 }
