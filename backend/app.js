@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv').config();
 const bodyParser = require('body-parser');
@@ -39,5 +40,12 @@ app.use('/api/salespeople', (req, res, next) => setTimeout(next, 300), routes.sa
 app.use('/api/customers', (req, res, next) => setTimeout(next, 300), routes.customerRoutes);
 app.use('/api/sales', (req, res, next) => setTimeout(next, 300), routes.salesRoutes);
 app.use('/api/discounts', (req, res, next) => setTimeout(next, 300), routes.discountRoutes);
+
+// Dist
+const distDir = path.join(__dirname, '../dist');
+app.use(express.static(path.join(distDir + '/bespoked-bikes')));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(distDir + '/bespoked-bikes/index.html'));
+});
 
 module.exports = app;
