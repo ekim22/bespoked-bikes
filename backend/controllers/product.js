@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Discount = require('../models/discount');
 const DiscountController = require('../controllers/discount');
 
 
@@ -21,7 +22,8 @@ module.exports.getProducts = async (req, res) => {
 
 module.exports.updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate({_id: req.params.id}, req.body).lean();
+    await Discount.findByIdAndUpdate({_id: req.params.id}).lean();
+    const product = await Product.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true}).lean();
     res.status(200).json({
       message: 'Product was updated!',
       product: product,
@@ -46,7 +48,7 @@ module.exports.createProduct = async (req, res) => {
       commissionPercentage: req.body.commissionPercentage,
     };
 
-    const product = Product.exists({name: req.body.name}).lean();
+    const product = await Product.exists({name: req.body.name}).lean();
     if (product) {
       res.status(400).json({
         message: 'Product already exists!',
