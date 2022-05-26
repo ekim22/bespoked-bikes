@@ -13,7 +13,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import {ColumnKeyPipe} from "./core/pipes/column-key.pipe";
 import {TransformDatePipe} from "./core/pipes/transform-date.pipe";
@@ -31,6 +31,9 @@ import { CommissionReportComponent } from './features/commissions/commission-rep
 import {MatExpansionModule} from "@angular/material/expansion";
 import { DiscountComponent } from './features/discount/discount.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ManufacturersProductPipe} from "./core/pipes/manufacturers-product.pipe";
+import {NetworkInterceptor} from "./core/interceptors/network.interceptor";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     HeaderComponent,
     ColumnKeyPipe,
     TransformDatePipe,
+    ManufacturersProductPipe,
     SalesDetailsComponent,
     CreateSaleComponent,
     CommissionReportComponent,
@@ -68,8 +72,13 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     ReactiveFormsModule,
     MatExpansionModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: NetworkInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
