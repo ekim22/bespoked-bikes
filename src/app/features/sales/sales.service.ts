@@ -16,15 +16,20 @@ export class SalesService {
     this.httpClient.get<{message: string, sales: SalesModel[]}>(environment.apiUrl + 'sales').subscribe(res => {
       this.sales$.next(res.sales);
       console.log(res.message);
-    })
+    });
   }
 
-  createSale(productId: string, customerId: string, salespersonId: string, saleDate: string) {
+  getCommissions() {
+    return this.httpClient.get<{message: string, sales: SalesModel[]}>(environment.apiUrl + 'sales')
+  }
+
+  createSale(productId: string, customerId: string, salespersonId: string, saleDate: string, productPrice: number) {
     const newSale = {
       product: productId,
       customer: customerId,
       salesperson: salespersonId,
-      saleDate: saleDate
+      saleDate: saleDate,
+      productPrice: productPrice
     };
     this.httpClient.post<{message: string}>(environment.apiUrl + 'sales/create', newSale).subscribe(res => {
       console.log(res.message)
@@ -37,6 +42,10 @@ export class SalesService {
 
   get salesArray() {
     return this.sales$.value.slice();
+  }
+
+  updateSalesState(sales: SalesModel[]) {
+    this.sales$.next(sales);
   }
 
 }
