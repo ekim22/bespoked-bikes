@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://bespoked-bikes.azurewebsites.net/api/'
+  apiUrl: 'https://my-bespoked-bikes.herokuapp.com/api/'
 };
