@@ -1,0 +1,180 @@
+#+TITLE: BeSpoked Bikes Notebook
+
+* Initial Thoughts
+** I think a MEAN app can fully handle all these requirements so I'll just run what I know.
+** Install Mongoose -> write schemas for the data entities
+** Install Express -> write api for data
+** Seed data
+** Angular can handle the remaining tasks (unless I want to validate the additional reqs server-side)
+*** DONE [#A] Remember to create client-side models for the incoming data
+*** Unit tests for client-side code in Jasmine would be good. Not certain if I really need tests server-side, given the reqs.
+*** [X] Question I'll have to answer later is if I want to use AMUI or Bootstrap or just leave it ugly.
+**** I've decided to use AMUI if I have time.
+** It's optional to host in Azure but I'm going to go for it. It'll be good to see the difference b/t it and Heroku.
+* Requirements
+** Backend
+*** Models
+**** DONE Products schema
+***** Name: String
+***** Manufacturer: String
+***** Style: String
+***** Purchase Price: Number
+***** Sale Price: Number
+***** Qty On Hand: Number
+***** Commission Percentage: String
+**** DONE Salesperson schema
+***** First Name: String
+***** Last Name: String
+***** Address: String
+***** Phone: String
+***** Start Date: Date
+***** Termination Date
+***** Manager: String
+**** DONE Customer schema
+***** First Name: String
+***** Last Name: String
+***** Address: String
+***** Phone: String
+***** Start Date: Date
+**** DONE Sales schema
+***** Product: Product ObjectId
+***** Salesperson: Salesperson ObjectId
+***** Customer: Customer ObjectId
+***** Sales Date: Date
+**** DONE Discount schema
+***** Product: Product ObjectId
+***** Begin Date: Date
+***** End Date: Date
+***** Discount Percentage: String
+**** TODO Seed with sample data
+** Frontend
+*** DONE Display list of salespersons
+*** DONE Update a salesperson's data
+*** DONE Display list of products
+*** DONE Update a product's data
+*** DONE Display list of customers
+*** TODO Display list of sales
+**** TODO Filter by date range; should include the product, customer, date, price, salesperson, and salesperson commission
+*** TODO Create a sale
+*** TODO Display a quarterly salesperson commission report
+**** This seems like it might be the most troublesome, since a report should also be nice to look at, not cluttered, but quick to access the relevant parts.
+** Additional requests
+*** TODO No duplicate product can be entered
+**** This means a product must have some kind of uniqueness check either on the front or back end.
+***** Doing it on back end makes sense since that's the only way to guarantee that no duplicate product can be entered. However, that will cost not only an http call, but a call to db to check if a document with the product's attributes exists. Maybe checking in both with a first pass happening in the FE is the way to go, since it'd only break down in the case of someone trying to hack the application, or when the application has a bug/breaks down.
+***** It would have to be on the back-end. There is also no way to actually create a product or salesperson, so this req is kind of iffy. It seems the most logical way to do it is to check if a document whose data is identical to the document to be inserted exists, then respond with a "product already exists!" message.
+****** This is mostly because there is no unique id associated with the product, like a reference number.
+*** TODO No duplicate salesperson can be entered
+**** Same constraint as the above request.
+***** It would be easy if it were checked against a field that's designated as unique, such as email, but that isn't a field in the req.
+** User Stories
+*** DONE SALESPERSONS
+**** DONE As a user, I want to be able to see a list of salespersons and their information.
+***** Data
+****** Nothing OOTO.
+***** Analysis
+****** This is a simple get request to the relevant endpoint. I don't have the controller for it, so need to write it first.
+***** Flow
+****** I open the sidenav and click the salespeople button to navigate to the salespeople page.
+****** The page displays a table of the salespeople and their information, including: their first name, last name, address, phone, start date of their employment, and termination date if they've been terminated, and their manager.
+**** DONE As a user, I want to be able to update a salesperson's information.
+***** Data
+****** Salesperson's id + any to all of salesperson's attributes.
+****** Turned out, position is also desirable, though not necessary without caching the get reqs.
+***** Analysis
+****** I'll construct the url with the salesperson's id as a param to access a particular salesperson.
+***** Flow
+**** TODO As a user, I don't want any duplicate salespersons in my product list because that would be redundant, confusing, and could damage the integrity of my data.
+***** Data
+****** I'm going to need an arbitrary salesperson's data and look for it in the db. If it returns an exact match, that's a duplicate.
+***** Analysis
+***** Flow
+*** PROJ PRODUCTS
+**** DONE As a user, I want to be able to see our list of products and their information.
+***** Data
+****** Nothing OOTO.
+***** Analysis
+***** Flow
+**** DONE As a user, I want to be able to update a product's information.
+***** Data
+***** Analysis
+***** Flow
+**** TODO As a user, I don't want any duplicate products in my product list because that would be redundant, confusing, and could damage the integrity of my data.
+***** Data
+***** Analysis
+***** Flow
+*** DONE CUSTOMERS
+**** DONE As a user, I want to be able to see a list of our customers.
+***** Data
+***** Analysis
+***** Flow
+*** PROJ SALES
+**** DONE As a user, I want to be able to see a list of our sales information.
+***** Data
+****** Nothing
+***** Analysis
+****** This one is different from the other display list stories. This one clearly wishes to be able to view per sale, the customer, product, and salesperson associated with that sale. Presumably a way to see data relevant to the three is desired.
+****** This means that the sales controller is probably incomplete. Instead, a getSale() controller is required. One that, upon request by the user, sends that the customer, product, and salesperson IDs to the server to fetch the data associated with those IDs.
+******* No, it's better to fetch it at once since they still want a list, specifically. A list would be pretty useless if the only thing it could render until clicked was the sale date. Not to mention they want to be able to filter the list using product, customer, salesperson, and other data.
+******* That's a potential huge operation if there was a lot of data, but I don't really see how to get around the need to grab all the CPS data associated with a sale at once.
+****** At that point, I would render C, P, and S data somehow. This one is more suited to navigating to a different route to render all the info for the sale, rather than pushing it all into a table's expanded view.
+***** Flow
+**** DONE As a user, I want to be able to create a new sale.
+***** Data
+***** Analysis
+****** Same as previous create methods.
+***** Flow
+**** DONE As a user, I want to be able to filter sales data that have the products, customers, dates, prices, salespersons, and salesperson commissions for an arbitrary range of dates.
+***** Data
+***** Analysis
+****** I'm going to do this entirely in Angular. I don't think the server ever comes into play.
+***** Flow
+*** PROJ REPORTS
+**** TODO As a user, I want to be able to see a quarterly salesperson commission report.
+***** Data
+***** Analysis
+****** Expansion panel per salesperson; expansion displays their quarterly commission report.
+****** It should filter by year and one of the 4 quarters.
+****** It should get every sale made by a salesperson for that quarter of that year and sum the commissions.
+****** The expansion panel will have the salesperson's name and their total.
+******* The expanded section should list all their sales for that year and quarter, and the commission they earned for it.
+***** Flow
+*** PROJ DISCOUNT
+**** TODO As a user, I want to be able to register discounts for my products, and have this discount be reflected in the product's prices and salesperson's commissions for until the end of the discount.
+***** Data
+***** Analysis
+****** On the FE, I could reuse the select product card, reuse the ranged datepicker, throw in an input for a discount percentage.
+****** I suppose I should just store discounts and then get them as a part of getting products. Then I can map each discount to the relevant product's price.
+****** In terms of showing the discount somewhere, I think showing it on the products list for it's sale price is probably best. Style it with some red and show the discount to inform them that a discount exists for this price.
+***** Flow
+* Project Notes
+** Questions
+*** [?] Do I need to think about how to calculate the quarterly bonus?
+** Ideas
+*** For updating, I'm thinking a table and clicking the rows produces a dropdown of the info as a reactive form that can be submitted to update the information for that row.
+*** Think about calendar for date selection for setting the dates on this app.
+*** Oh I just realized it's not obvious what discount should do from the reqs alone. So I probably need to use my best judgment regarding its role in the app given it's data fields alone.
+**** Discount should just be an option that opens up upon clicking a button to apply a discount, at which point a form is created asking for the discount data.
+**** The productId will ensure that when the product list is generated, all discounts will match up to a
+*** The requirement asks to be able to view a report. Maybe an option to download it in a data format (csv/json) or a static form like html could be nice to have.
+*** There's no requirement for auth. Probably want to add that if I have time. Also, there's no admin panel for managing stuff, so that's probably something I'd also want to add (the admins would manage the users that get to use this app).
+*** Wouldn't mind animating the transition from a sales record to the detailed view.
+** Problems
+** Thoughts
+*** Thinking about estimated time to complete the rest of requirements given experience in completing the salesperson reqs.
+**** It took a fair share of time. However, since the other reqs have overlap with the salesperson reqs, I believe they will take much less time.
+**** Products and Customers should be knocked in an hour or an hour and thirty.
+***** It was an hour and 13.
+**** That leaves Sales and Reports (4 user stories total).
+***** Sales and Report own two user stories that don't benefit from the existing work done for salesperson. They are:
+****** Filtering sales
+******* This is obviously the easier of the two, and it should be easy to complete.
+****** Displaying a quarterly salesperson commission report
+******* This is potentially troublesome. I'm not sure how long this will take.
+***** Once the stories are down to these two, filtering sales is the priority, then the quarterly salesperson report, but I'll need to review how much time I have left.
+** Discoveries
+*** WOW! Burned some time stumped on why my requests weren't working for salesperson. Turns out, all model names are run through util.toCollectionName and "person" is automagically turned into "people"... Very annoying, but good to know.
+**** Also, singular names get an "s" added to the end of their names.
+*** WOW! What I thought had the potential to be a time-consuming or complicated problem ended up being extremely simple. In order to get the documents associated with a sales' productId, salespersonId, and customerId, I merely needed to add a populate middleware to the existing getSales() controller. That was completely sufficient to grab the documents associated with those id's.
+* Tasks
+** DONE Add a heading to the various reports.
